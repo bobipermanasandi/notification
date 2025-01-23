@@ -3,6 +3,7 @@ import 'package:notification/models/received_notification.dart';
 import 'package:notification/providers/local_notification_provider.dart';
 import 'package:notification/providers/payload_provider.dart';
 import 'package:notification/services/local_notification_service.dart';
+import 'package:notification/services/workmanager_service.dart';
 import 'package:notification/static/my_route.dart';
 import 'package:notification/widgets/my_divider.dart';
 import 'package:provider/provider.dart';
@@ -228,9 +229,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _runBackgroundOneOffTask() async {}
+  void _runBackgroundOneOffTask() async {
+    context.read<WorkmanagerService>().runOneOffTask();
+  }
 
-  void _runBackgroundPeriodicTask() async {}
+  void _runBackgroundPeriodicTask() async {
+    context.read<WorkmanagerService>().runPeriodicTask();
+  }
 
-  void _cancelAllTaskInBackground() async {}
+  void _cancelAllTaskInBackground() async {
+    context.read<WorkmanagerService>().cancelAllTask();
+  }
 }

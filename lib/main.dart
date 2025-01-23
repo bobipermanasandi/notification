@@ -5,6 +5,7 @@ import 'package:notification/screen/detail_screen.dart';
 import 'package:notification/screen/home_screen.dart';
 import 'package:notification/services/http_service.dart';
 import 'package:notification/services/local_notification_service.dart';
+import 'package:notification/services/workmanager_service.dart';
 import 'package:notification/static/my_route.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +38,9 @@ void main() async {
           )
             ..init()
             ..configureLocalTimeZone(),
+        ),
+        Provider(
+          create: (context) => WorkmanagerService()..init(),
         ),
         ChangeNotifierProvider(
           create: (context) => LocalNotificationProvider(

@@ -4,8 +4,9 @@ A new Flutter project.
 
 ## Simple Notification
 
-✅ Custom Ringtone Notification (Android) -> IOS belum disetup karena harus menggunakan XCODE
+✅ Custom Ringtone Notification (Android)
 ✅ OnTapped Notification to specific screen
+❌ IOS belum disetup karena harus menggunakan XCODE
 
 ## Big Picture Notification
 
@@ -17,3 +18,11 @@ A new Flutter project.
 ✅ Schedule every 10.00 WIB
 ✅ List of Pending Schedule Notification
 ✅ Cancel Notification By ID (Dialog)
+
+## Background Process
+
+✅ Configure Android
+✅ One Off Task 
+✅ Periodic Task
+✅ Cancel All Task
+❌ IOS belum disetup karena harus menggunakan XCODE
