@@ -6,3 +6,8 @@ A new Flutter project.
 
 ✅ Custom Ringtone Notification (Android) -> IOS belum disetup karena harus menggunakan XCODE
 ✅ OnTapped Notification to specific screen
+
+## Big Picture Notification
+
+✅ All Feature Simple notification
+✅ Show Picture on Notification (local image, String base64, URL)

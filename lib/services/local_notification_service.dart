@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:notification/models/received_notification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:notification/services/http_service.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -18,6 +19,9 @@ void notificationTapBackground(NotificationResponse notificationResponse) {
 }
 
 class LocalNotificationService {
+  final HttpService httpService;
+  LocalNotificationService(this.httpService);
+
   Future<void> init() async {
     const initializationSettingsAndroid = AndroidInitializationSettings(
       'app_icon',
@@ -101,6 +105,56 @@ class LocalNotificationService {
         // sound: 'slow_spring_board.aiff',
         // presentSound: true,
         );
+    final notificationDetails = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin.show(
+      id,
+      title,
+      body,
+      notificationDetails,
+      payload: payload,
+    );
+  }
+
+  Future<void> showBigPictureNotification({
+    required int id,
+    required String title,
+    required String body,
+    required String payload,
+    String channelId = "2",
+    String channelName = "Big Picture Notification",
+  }) async {
+    final String largeIconPath = await httpService.downloadAndSaveFile(
+        'https://dummyimage.com/48x48', 'largeIcon');
+
+    final String bigPicturePath = await httpService.downloadAndSaveFile(
+        'https://dummyimage.com/600x200', 'bigPicture.jpg');
+
+    final BigPictureStyleInformation bigPictureStyleInformation =
+        BigPictureStyleInformation(FilePathAndroidBitmap(bigPicturePath),
+            largeIcon: FilePathAndroidBitmap(largeIconPath),
+            contentTitle: 'overridden <b>big</b> content title',
+            htmlFormatContentTitle: true,
+            summaryText: 'summary <i>text</i>',
+            htmlFormatSummaryText: true);
+
+    final androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      channelId,
+      channelName,
+      importance: Importance.max,
+      priority: Priority.high,
+      styleInformation: bigPictureStyleInformation,
+    );
+    final iOSPlatformChannelSpecifics = DarwinNotificationDetails(
+      attachments: [
+        DarwinNotificationAttachment(
+          bigPicturePath,
+          hideThumbnail: false,
+        )
+      ],
+    );
     final notificationDetails = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,

@@ -3,6 +3,7 @@ import 'package:notification/providers/local_notification_provider.dart';
 import 'package:notification/providers/payload_provider.dart';
 import 'package:notification/screen/detail_screen.dart';
 import 'package:notification/screen/home_screen.dart';
+import 'package:notification/services/http_service.dart';
 import 'package:notification/services/local_notification_service.dart';
 import 'package:notification/static/my_route.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,12 @@ void main() async {
     MultiProvider(
       providers: [
         Provider(
-          create: (context) => LocalNotificationService()..init(),
+          create: (context) => HttpService(),
+        ),
+        Provider(
+          create: (context) => LocalNotificationService(
+            context.read<HttpService>(),
+          )..init(),
         ),
         ChangeNotifierProvider(
           create: (context) => LocalNotificationProvider(
