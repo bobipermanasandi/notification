@@ -11,3 +11,9 @@ A new Flutter project.
 
 ✅ All Feature Simple notification
 ✅ Show Picture on Notification (local image, String base64, URL)
+
+## Schedule Notification
+
+✅ Schedule every 10.00 WIB
+✅ List of Pending Schedule Notification
+✅ Cancel Notification By ID (Dialog)
